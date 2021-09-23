@@ -1,0 +1,73 @@
+version: '3.8'
+
+# network ismini belirler. Belirtilmezse bulunduğu klasör ismini alır.
+# : sonrasıda tipini belirtir.
+# birden fazla network kullanılabilir.
+networks:
+    5G_CN_Dev_Network:
+      driver: bridge
+      ipam:
+        config:
+          - subnet: 11.12.15.0/24
+            gateway: 11.12.15.1
+
+services:
+    5g-nf-dev:
+      build:
+        context: .
+        dockerfile: Dockerfile
+        args:
+          NF_PAKET_ADI: "cnrnrf"
+          CINAR_ENV_ARG: "dev"
+      image: "cinar/pcf:dev"
+      container_name: nrfdev
+      privileged: true
+      # deploy:
+      #   resources:
+      #     limits:
+      #       cpus: '0.50'
+      #       memory: 250M
+      #     reservations:
+      #       cpus: '0.25'
+      #       memory: 100M
+      volumes:
+       - ../:/Source
+      #  - ../Includes/opt/cinar/include:/opt/cinar/include
+      #  - ${localSourceFolder}:${remoteSourceFolder}
+      # env_file: .env
+      ports:
+          - "8009:8009"
+      networks:
+          5G_CN_Dev_Network:
+            ipv4_address: 11.12.15.3
+
+    # mongo:
+    #   container_name: cinardb
+    #   image: mongo
+    #   environment:
+    #     MONGO_INITDB_ROOT_USERNAME: "cnrusr"
+    #     MONGO_INITDB_ROOT_PASSWORD: "P5vKG6vE"
+    #     MONGODB_DATABASE: "cinarnrftest"
+    #   command:
+    #     - mongo
+    #     - --authenticationDatabase
+    #     - admin -u cnrusr -p P5vKG6vE cinarnssftest
+    #     - --eval
+    #     - "db.createCollection('cinarnsicollection'); db.createCollection('cinarnssrulescollection');"
+    #   deploy:
+    #     resources:
+    #       limits:
+    #         cpus: '0.50'
+    #         memory: 250M
+    #       reservations:
+    #         cpus: '0.25'
+    #         memory: 100M
+    #   #volumes:
+    #   #  - type: bind
+    #   #    source: ./conf-nrf/settings.json
+    #   #    target: /opt/cinar/nrf/settings.json
+    #   ports:
+    #       - "27017:27017"
+    #   networks:
+    #       5G_CN_Dev_Network:
+    #         ipv4_address: 11.12.13.3
