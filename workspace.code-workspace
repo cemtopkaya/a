@@ -210,7 +210,7 @@
         "C_Cpp.default.cppStandard": "gnu++14",
         "C_Cpp.default.intelliSenseMode": "linux-gcc-x64",
         "C_Cpp.errorSquiggles": "Enabled",
-        "C_Cpp.loggingLevel": "None",
+        "C_Cpp.loggingLevel": "Error",
         "C_Cpp.intelliSenseCachePath": "/Source/cpp_intellisense_cache_dir",
         "C_Cpp.default.browse.databaseFilename": "cpp_browse_database_dosya_adi",
         "C_Cpp.files.exclude": {

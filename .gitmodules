@@ -1,0 +1,6 @@
+[submodule "nrf"]
+	path = nrf
+	url = git@github.com:cemtopkaya/nrf.git
+[submodule "yaml"]
+	path = yaml
+	url = git@github.com:cemtopkaya/yaml.git
